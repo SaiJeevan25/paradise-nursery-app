@@ -14,6 +14,7 @@ export default function ProductPage(props) {
             return (
               <Product
                 key={plant.id}
+                productKey={plant.id}
                 name={plant.name}
                 price={plant.price}
                 image={plant.imageUrl}
@@ -21,7 +22,9 @@ export default function ProductPage(props) {
                 addToCart={addToCart}
               />
             )
-          })}
+          })
+          
+          }
         </div>
     </>
   )

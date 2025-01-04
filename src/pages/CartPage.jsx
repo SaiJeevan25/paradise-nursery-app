@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from './components/Header'
 export default function CartPage(props) {
-  const {cartQuantity} = props
+  const {cartQuantity, setCartQuantity, cartItems} = props
   return (
     <>
       <Header cartQuantity={cartQuantity}/>
@@ -11,10 +11,10 @@ export default function CartPage(props) {
           <button className='border p-2'>Checkout</button>
           <button className='border p-2'>Continue Shopping</button>
         </div>
-        <div>
-          <h1>Cart Items: </h1>
+        <div className='flex '>
+          <h1>Cart Items: {cartQuantity}</h1>
           <div>
-
+            {}
           </div>
         </div>
       </div>

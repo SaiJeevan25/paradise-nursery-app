@@ -9,44 +9,50 @@ export default function App() {
 	const [cartQuantity, setCartQuantity] = useState(() => {
 		const savedCartQuantity = localStorage.getItem('cartQuantity');
 		return savedCartQuantity ? JSON.parse(savedCartQuantity) : 0;  
-	  });
+	});
 	
-	  const [cartItems, setCartItems] = useState(() => {
+	const [cartItems, setCartItems] = useState(() => {
 		const savedCartItems = localStorage.getItem('cartItems');
-		return savedCartItems ? JSON.parse(savedCartItems) : [];  
-	  });
+        return savedCartItems? JSON.parse(savedCartItems) : [];
+	});  
 
-	  useEffect(() => {
-		localStorage.setItem('cartItems', JSON.stringify(cartItems));
-	  })	  
-
-	  useEffect(() => {
+	useEffect(() => {
 		localStorage.setItem('cartQuantity', JSON.stringify(cartQuantity));
-	  }, [cartQuantity]);
+	}, [cartQuantity]);
+
+	useEffect(() => {
+		localStorage.setItem('cartItems', JSON.stringify(cartItems));
+	}, [cartItems]);
 
 	
-	  const addToCart = (key) => {
+	const addToCart = (productKey) => {
+		const item = plantsData[productKey]
+		const index = cartItems.findIndex(item => item[0] === productKey)
+		const updatedCartItems = [...cartItems]
+		if (index === -1){
+			const newItem = [productKey, item.name, item.price, 1]
+			updatedCartItems.push(newItem)
+			console.log(updatedCartItems)
+		} else {
+			const updatedCartItems = [...cartItems];
+			updatedCartItems[index][3]++;
+		}
+		setCartItems(updatedCartItems);
 		setCartQuantity(cartQuantity + 1);
-		const item = plantsData[key]
-		const newItem = [item.key, item.name, item.price, 1]
-		if (!cartItems.includes(item)){
-			setCartItems([...cartItems, newItem]);
-		} 
-		
-	  };
+	};
 	
-	  const removeFromCart = () => {
+	const removeFromCart = () => {
 		if (cartQuantity > 0) {
 		  setCartQuantity(cartQuantity - 1);
 		}
-	  };
+	};
 
 	return (
 		<Router>
 			<Routes>
 				<Route path='/' element={<LandingPage  />}></Route>
 				<Route path='/product' element={<ProductPage addToCart={addToCart} cartQuantity={cartQuantity}/>}></Route>
-				<Route path='/cart' element={<CartPage cartQuantity={cartQuantity} />}></Route>
+				<Route path='/cart' element={<CartPage cartQuantity={cartQuantity} setCartQuantity={setCartQuantity} cartItem={cartItems}/>}></Route>
 			</Routes>
 		</Router>
 	)

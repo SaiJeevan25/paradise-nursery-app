@@ -10,8 +10,8 @@ export default function Header(props) {
                 <div className='flex flex-row gap-3 cursor-pointer' onClick={() => window.location.href='/'}>
                     <img src="/images/logo.jpg" alt="logoImage" className='w-16 border rounded-xl'/>
                     <div className='px-2 flex flex-col'>
-                        <p className='text-md sm:text-lg  md:text-xl lg:text-2xl font-bold text-white'>Paradise Nursery</p>
-                        <h1 className='text-sm sm:text-md  md:text-lg lg:text-xl'>Grow with Paradise</h1>
+                        <p className='text-xl sm:text-xl  md:text-2xl lg:text-2xl font-bold text-white'>Paradise Nursery</p>
+                        <h1 className='text-lg sm:text-lg  md:text-lg lg:text-xl'>Grow with Paradise</h1>
                     </div>
                 </div>
                 <div className='ml-auto' onClick={() => window.location.href='/cart'}>

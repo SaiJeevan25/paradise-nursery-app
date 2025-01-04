@@ -2,19 +2,19 @@ import React from 'react'
 import { useState } from 'react';
 
 export default function Product(props) {
-  const { key, name, price, image, description, addToCart } = props
+  const { productKey, name, price, image, description, addToCart } = props
   const [added, setAdded] = useState('Add To Cart');
   const [isDisabled, setIsDisabled] = useState(false);
   return (
     <>
-        <div key={key} className='border-[5px] w-80 border-solid flex flex-1 gap-3 flex-col items-center py-3 relative'>
+        <div  className='border-[5px] w-80 border-solid flex flex-1 gap-3 flex-col items-center py-3 relative'>
             <h1 className='text-4xl'>{name}</h1>
             <img className='max-w-64' src={image} alt={name}/>
             <p className='text-2xl '>₹ <span className='text-green-500'>{price}</span></p>
             <p className='text-center text-sm'>{description}</p>
             <button
               onClick={() => {
-                addToCart(key);
+                addToCart(productKey);
                 setAdded('Added to Cart');
                 setIsDisabled(true);
               }}
