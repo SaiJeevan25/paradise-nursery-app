@@ -30,21 +30,40 @@ export default function App() {
 		const index = cartItems.findIndex(item => item[0] === productKey)
 		const updatedCartItems = [...cartItems]
 		if (index === -1){
-			const newItem = [productKey, item.name, item.price, 1]
+			const newItem = [productKey, item.imageUrl, item.name,  item.price, 1]
 			updatedCartItems.push(newItem)
 			console.log(updatedCartItems)
 		} else {
 			const updatedCartItems = [...cartItems];
-			updatedCartItems[index][3]++;
+			updatedCartItems[index][4]++;
 		}
 		setCartItems(updatedCartItems);
 		setCartQuantity(cartQuantity + 1);
 	};
 	
-	const removeFromCart = () => {
-		if (cartQuantity > 0) {
-		  setCartQuantity(cartQuantity - 1);
-		}
+	const removeFromCart = (productKey) => {
+		const removeItem = cartItems.find(item => item[0] === productKey);
+		const updatedCartItems = cartItems.filter(item => item[0]!== productKey);
+		setCartItems(updatedCartItems);
+		setCartQuantity(cartQuantity - removeItem[4]);
+	};
+
+	const singleItem = (productKey,action) => {
+		const itemIndex = cartItems.findIndex(item => item[0] === productKey);
+		if (action === 0) {
+			cartItems[itemIndex][4]++;
+			setCartQuantity(cartQuantity + 1);
+		} else if (action === 1) {
+			if (cartItems[itemIndex][4] === 1) {
+                removeFromCart(productKey);
+				setCartQuantity(cartQuantity- 1);
+				return
+            };
+			cartItems[itemIndex][4]--;
+			setCartQuantity(cartQuantity- 1);
+            
+		};
+		setCartItems([...cartItems]);
 	};
 
 	return (
@@ -52,7 +71,7 @@ export default function App() {
 			<Routes>
 				<Route path='/' element={<LandingPage  />}></Route>
 				<Route path='/product' element={<ProductPage addToCart={addToCart} cartQuantity={cartQuantity}/>}></Route>
-				<Route path='/cart' element={<CartPage cartQuantity={cartQuantity} setCartQuantity={setCartQuantity} cartItem={cartItems}/>}></Route>
+				<Route path='/cart' element={<CartPage  cartQuantity={cartQuantity} setCartQuantity={setCartQuantity} cartItems={cartItems} removeFromCart={removeFromCart} singleItem={singleItem}/>}></Route>
 			</Routes>
 		</Router>
 	)
