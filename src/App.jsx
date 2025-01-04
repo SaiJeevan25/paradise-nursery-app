@@ -1,16 +1,24 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import plantsData from './utlis/plantsData'
 import LandingPage from './pages/LandingPage'
 import ProductPage from './pages/ProductPage'
 import CartPage from './pages/CartPage'
 export default function App() {
 	const [cartQuantity, setCartQuantity] = useState(() => {
-		const savedCartItems = localStorage.getItem('cartQuantity');
-		return savedCartItems ? JSON.parse(savedCartItems) : 0;  
+		const savedCartQuantity = localStorage.getItem('cartQuantity');
+		return savedCartQuantity ? JSON.parse(savedCartQuantity) : 0;  
 	  });
 	
-	  
+	  const [cartItems, setCartItems] = useState(() => {
+		const savedCartItems = localStorage.getItem('cartItems');
+		return savedCartItems ? JSON.parse(savedCartItems) : [];  
+	  });
+
+	  useEffect(() => {
+		localStorage.setItem('cartItems', JSON.stringify(cartItems));
+	  })	  
 
 	  useEffect(() => {
 		localStorage.setItem('cartQuantity', JSON.stringify(cartQuantity));
@@ -19,6 +27,11 @@ export default function App() {
 	
 	  const addToCart = (key) => {
 		setCartQuantity(cartQuantity + 1);
+		const item = plantsData[key]
+		const newItem = [item.key, item.name, item.price, 1]
+		if (!cartItems.includes(item)){
+			setCartItems([...cartItems, newItem]);
+		} 
 		
 	  };
 	
