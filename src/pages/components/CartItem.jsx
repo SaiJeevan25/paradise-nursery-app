@@ -9,7 +9,7 @@ export default function CartItem(props) {
                 <img src={item[1]} alt="Image" className='my-auto w-56 ' />
                 <div className='flex flex-col justify-center items-center gap-3'>
                     <h1 className='text-lg sm:text-lg md:text-xl lg:text-2xl'>{item[2]}</h1>
-                    <p className='text-lg '>₹ <span className='text-green-500'>{item[3]}</span></p>
+                    <p className='text-lg '>₹ <span className='text-green-500'>{item[3] * item[4]}</span></p>
                     <div className='w-32 flex flex-row gap-3 justify-center items-center'>
                         <button 
                         onClick={() => {singleItem(productKey,1)}}
