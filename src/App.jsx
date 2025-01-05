@@ -71,7 +71,7 @@ export default function App() {
 			<Routes>
 				<Route path='/' element={<LandingPage  />}></Route>
 				<Route path='/product' element={<ProductPage addToCart={addToCart} cartQuantity={cartQuantity}/>}></Route>
-				<Route path='/cart' element={<CartPage  cartQuantity={cartQuantity} setCartQuantity={setCartQuantity} cartItems={cartItems} removeFromCart={removeFromCart} singleItem={singleItem}/>}></Route>
+				<Route path='/cart' element={<CartPage setCartQuantity={setCartQuantity} setCartItems={setCartItems}  cartQuantity={cartQuantity} setCartQuantity={setCartQuantity} cartItems={cartItems} removeFromCart={removeFromCart} singleItem={singleItem}/>}></Route>
 			</Routes>
 		</Router>
 	)

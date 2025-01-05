@@ -2,11 +2,17 @@ import React from 'react'
 import Header from './components/Header'
 import CartItem from './components/CartItem'
 export default function CartPage(props) {
-  const {cartQuantity, cartItems, removeFromCart, singleItem } = props
+  const {cartQuantity, cartItems, removeFromCart, singleItem, setCartItems, setCartQuantity } = props
 
   function totalPrice() {
     return cartItems.reduce((total, item) => total + item[3] * item[4], 0)
-  } 
+  }
+
+  function removeAllItems() {
+    setCartQuantity(0)
+    setCartItems([])
+    alert('Coming Soon!!')
+  }
 
   return (
     <>
@@ -26,7 +32,7 @@ export default function CartPage(props) {
         </div>
         <div className=' flex flex-col gap-5 items-center mt-10  mx-auto px-10'>
           <p className='text-2xl'>Total Amount: ₹{totalPrice()}</p>
-          <button className='border p-2 bg-blue-700 rounded-lg text-white'>Checkout</button>
+          <button onClick={removeAllItems} className='border p-2 bg-blue-700 rounded-lg text-white'>Checkout</button>
           <button onClick={() => window.location.href='/product'} className='border p-2 bg-green-700 rounded-lg text-white'>Continue Shopping</button>
         </div>
       </div>
